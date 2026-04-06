@@ -46,6 +46,9 @@ jobs:
           npm run lint
           tsc --noEmit
 
+      - name: Copy test env file
+        run: cp .env.test .env
+
       - name: Wait for Postgres
         run: |
           until pg_isready -h localhost -p 5432 -U test; do
