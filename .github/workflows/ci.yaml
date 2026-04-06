@@ -13,6 +13,13 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_USER: test
+      DB_PASSWORD: test
+      DB_NAME: test_db
 
     services:
       postgres:
@@ -45,9 +52,6 @@ jobs:
         run: |
           npm run lint
           tsc --noEmit
-
-      - name: Copy test env file
-        run: cp .env.test .env
 
       - name: Wait for Postgres
         run: |
