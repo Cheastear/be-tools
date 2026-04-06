@@ -1,0 +1,31 @@
+import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
+import { ShortLinkService } from './short-link.service';
+import { CreateShortLinkDto } from './dto/create-short-link.dto';
+import { Response } from 'express';
+
+@Controller('short-link')
+export class ShortLinkController {
+  constructor(private readonly service: ShortLinkService) {}
+
+  @Post()
+  async createLink(@Body() body: CreateShortLinkDto) {
+    return await this.service.create(body);
+  }
+
+  @Get(':code')
+  async redirect(@Param('code') code: string, @Res() res: Response) {
+    const link = await this.service.getLink({ code });
+
+    if (!link) {
+      return res.status(404).send('Link not found');
+    }
+
+    if (link.expiresAt && new Date() > link.expiresAt) {
+      return res.status(410).send('Link expired');
+    }
+
+    await this.service.incrementClicks({ code });
+
+    return res.redirect(link.originalUrl);
+  }
+}
