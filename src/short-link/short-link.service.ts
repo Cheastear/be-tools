@@ -8,7 +8,7 @@ import { CreateShortLinkDto } from './dto/create-short-link.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ShortLink } from './entity/short-link.entity';
 import { LessThan, Repository } from 'typeorm';
-import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid/non-secure';
 
 @Injectable()
 export class ShortLinkService {
@@ -22,7 +22,7 @@ export class ShortLinkService {
     let exists: ShortLink | null;
 
     do {
-      code = nanoid(6);
+      code = nanoid(8);
       exists = await this.repo.findOne({ where: { code } });
     } while (exists);
 
