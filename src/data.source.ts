@@ -11,6 +11,11 @@ void ConfigModule.forRoot({
 });
 
 const configService = new ConfigService();
+console.log(
+  process.env.CI,
+  process.env.NODE_ENV,
+  configService.get('DB_PASSWORD'),
+);
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
