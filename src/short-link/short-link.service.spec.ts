@@ -4,10 +4,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppDataSource } from '../data.source';
 import { ShortLink } from './entity/short-link.entity';
 
-jest.mock('nanoid/non-secure', () => ({
-  nanoid: jest.fn(() => 'TESTCODE'),
-}));
-
 describe('ShortLinkService', () => {
   let service: ShortLinkService;
 
