@@ -63,11 +63,17 @@ describe('TempChatMessageService', () => {
     expect(chat.messages.length).toBe(test_messages.length);
   });
 
-  // it('should delete chat with cascade all messages', async () => {
-  //   const messageCount = chat.messages.length;
+  it('should delete chat with cascade all messages', async () => {
+    const messageCount = chat.messages.length;
 
-  //   const result = await chatService.remove({ id: chat.id });
+    const result = await chatService.remove({ id: chat.id });
 
-  //   expect(result.affected).toBe(1);
-  // });
+    const messages = await service.getMessagesFromId({
+      chatId: chat.chatId,
+      messageIdFrom: 0,
+    });
+
+    expect(result.affected).toBe(1);
+    expect(messageCount).not.toBe(messages.length);
+  });
 });

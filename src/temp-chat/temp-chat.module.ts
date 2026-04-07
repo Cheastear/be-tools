@@ -5,10 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TempChat } from './entities/temp-chat.entity';
 import { TempChatMessageService } from './temp-chat-message.service';
 import { TempChatMessage } from './entities/temp-chat-message.entity';
+import { TempChatController } from './temp-chat.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TempChat, TempChatMessage])],
   exports: [TempChatService],
   providers: [TempChatGateway, TempChatService, TempChatMessageService],
+  controllers: [TempChatController],
 })
 export class TempChatModule {}
