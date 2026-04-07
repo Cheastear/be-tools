@@ -60,7 +60,7 @@ describe('TempChatMessageService', () => {
     expect(chat.id).toBeDefined();
     expect(chat.chatId).toBeDefined();
 
-    expect(chat.messages.length).toBe(1);
+    expect(chat.messages.length).toBe(test_messages.length);
   });
 
   // it('should delete chat with cascade all messages', async () => {
