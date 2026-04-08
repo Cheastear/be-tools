@@ -22,7 +22,7 @@ export class TempChatMessageService {
     return await this.repo.save(newMessage);
   }
 
-  async getMessagesFromId({ chatId, messageIdFrom }: GetMessagesFromIdDto) {
+  async getMessagesFromId({ chatId, messageIdFrom = 0 }: GetMessagesFromIdDto) {
     return await this.repo.find({
       where: { chat: { chatId }, id: MoreThan(messageIdFrom) },
       order: { id: 'ASC' },
